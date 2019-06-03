@@ -12,9 +12,6 @@ class FormularioAutor extends Component {
     super();
     this.state = {nome:'', email:'', senha:''};
     this.enviaForm = this.enviaForm.bind(this);
-    this.setNome = this.setNome.bind(this);
-    this.setEmail = this.setEmail.bind(this);
-    this.setSenha = this.setSenha.bind(this);
     // O bind a cima é por que o this não está definido.
   }
     // Evento do react
@@ -43,25 +40,22 @@ class FormularioAutor extends Component {
         }
       });
     }
-    
+
     // Para pegar informação dos inputs
-    setNome(evento) {
-      this.setState({nome:evento.target.value});
+    salvaAlteracao(nomeInput, evento) {
+      var campoSendoAlterado = {};
+      campoSendoAlterado[nomeInput] = evento.target.value;
+      this.setState(campoSendoAlterado);
     }
-    setEmail(evento){
-      this.setState({email:evento.target.value});
-    }
-    setSenha(evento){
-      this.setState({senha:evento.target.value})
-    }
+    
 
     render () {
         return (
             <div className="pure-form pure-form-aligned">
                 <form className="pure-form pure-form-aligned" onSubmit={this.enviaForm} method="post">
-                    <InputCustom id="nome" type="text" name="nome" value={this.state.nome} onChange={this.setNome} label="Nome"/>                                              
-                    <InputCustom id="email" type="email" name="email" value={this.state.email} onChange={this.setEmail} label="Email"/>                                              
-                    <InputCustom id="senha" type="password" name="senha" value={this.state.senha} onChange={this.setSenha} label="Senha"/>                                                                       
+                    <InputCustom id="nome" type="text" name="nome" value={this.state.nome} onChange={this.salvaAlteracao.bind(this,'nome')} label="Nome"/>                                              
+                    <InputCustom id="email" type="email" name="email" value={this.state.email} onChange={this.salvaAlteracao.bind(this,'email')} label="Email"/>                                              
+                    <InputCustom id="senha" type="password" name="senha" value={this.state.senha} onChange={this.salvaAlteracao.bind(this,'senha')} label="Senha"/>                                                                       
                     <div className="pure-control-group">                                  
                         <label></label> 
                         <button type="submit" className="pure-button pure-button-primary">Gravar</button>                                    
